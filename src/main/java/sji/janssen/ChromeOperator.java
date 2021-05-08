@@ -1,8 +1,11 @@
 package sji.janssen;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -20,12 +23,13 @@ public class ChromeOperator {
 //    	options.addArguments("user-data-dir=C:/Users/JAVA_USER/AppData/Local/Google/Chrome/User Data/Profile 1");
     	options.addArguments("--start-maximized");
     	driver = new ChromeDriver(options);
-		
+    	
 	}
 	
 	public void openUrl(String url) {
 		driver.get(url);
 	}
+	
 	public void closeUrl() {
 		driver.close();
 	}
@@ -40,7 +44,6 @@ public class ChromeOperator {
 			e.printStackTrace();
 			return false;
 		}
-		
 	}
 	
 	public boolean inElementPresent(By by) {
@@ -82,8 +85,8 @@ public class ChromeOperator {
 		
 	}
 	
-	public boolean click(By by) {
-		
+	public boolean click(By by) {	
+
 		try {
 			driver.findElement(by).click();;
 			return true;

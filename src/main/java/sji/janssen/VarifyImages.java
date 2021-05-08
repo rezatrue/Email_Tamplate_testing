@@ -14,11 +14,12 @@ public class VarifyImages {
 	public VarifyImages(WebDriver driver, Types type) {
 		this.driver = driver;
 		this.type = type;
+		
+		getAllImages();
 	}
 	
-	public void getAllImages(String url) {
+	private void getAllImages() {
 			
-			driver.get(url);
 			
 			List<WebElement> listOfImageWe = driver.findElements(By.xpath("//img"));
 			
@@ -33,13 +34,41 @@ public class VarifyImages {
 				System.out.println("Src: " + anchorWe.getAttribute("src"));
 				System.out.println("Width: " + anchorWe.getAttribute("width"));
 				System.out.println("Height: " + anchorWe.getAttribute("height"));
+				checkImageSrc(anchorWe);
 				System.out.println("\t \t \t -X \t -X \t -X \t -");
 				
-			}
-		
-		
+			}		
 	}
 
+	private void checkImageSrc(WebElement anchorWe) {
+		
+		//String src = anchorWe.getAttribute("outerHTML");
+		String src = anchorWe.getAttribute("src");
+
+		if(src.contains("elqTrackId"))
+			System.err.println("link should not contains elqTrackId");
+		
+		if(type == Types.ZIP) {
+			if(src.contains("assets/images/"))
+				System.out.println("Image resource is local");
+			else
+				System.err.println("Image resource is not local");
+			
+			String imageExtension = src.substring(src.lastIndexOf("."), src.length());
+			boolean hasUppercase = !imageExtension.equals(imageExtension.toLowerCase());
+			if(hasUppercase)
+				System.err.println(imageExtension + ": image Extension contains Uppercase!!");
+			else
+				System.out.println(imageExtension + ": all are lowercase");
+			
+		}else {
+			if(src.contains("/EloquaImages/"))
+				System.out.println("Image resource is in EloquaImages");
+			else
+				System.err.println("Image resource is not in EloquaImages server");
+		}
+		
+	}
 	
 	
 }

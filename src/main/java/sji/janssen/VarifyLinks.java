@@ -116,11 +116,16 @@ public class VarifyLinks {
 			System.err.println("Link color should be #00407b");
 		else
 			System.out.println("color\t"+ color);
-		String decoration = anchorWe.getCssValue("text-decoration");
-		if(decoration.contains("underline"))
+		
+		String decoration = anchorWe.getCssValue("text-decoration").trim();
+		
+		if(!decoration.contains("underline"))
 			System.err.println("Link text should be underline");
 		else
 			System.out.println("text-decoration\t"+ decoration);
+		
+		if(href.contains("elqTrackId"))
+			System.err.println("link should not contains elqTrackId");
 		
 	}
 	
